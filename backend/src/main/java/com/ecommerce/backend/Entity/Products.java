@@ -2,10 +2,13 @@ package com.ecommerce.backend.Entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "products")
 public class Products {
@@ -26,5 +29,8 @@ public class Products {
     @Column(nullable = false)
     private Integer stock;
 
-    // getters & setters
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
 }

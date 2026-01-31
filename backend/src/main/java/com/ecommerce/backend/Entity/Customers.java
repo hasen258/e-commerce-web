@@ -3,8 +3,11 @@ package com.ecommerce.backend.Entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "customers")
 public class Customers {
@@ -21,5 +24,5 @@ public class Customers {
 
     private String phone;
 
-    private String address;
+    private String password;
 }
