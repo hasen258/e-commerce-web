@@ -1,0 +1,21 @@
+.page-content {
+    padding: 2rem;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+.section-title {
+    max-width: 1200px;
+    margin: 0 auto 2rem auto;
+    padding-left: 2rem;
+
+    h2 {
+        font-size: 2rem;
+        color: #202124;
+        margin-bottom: 0.5rem;
+    }
+
+    p {
+        color: #5f6368;
+    }
+}

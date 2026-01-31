@@ -1,0 +1,79 @@
+<div class="login-container">
+    <div class="left-panel">
+        <div class="brand">
+            <div class="logo-icon">🛍️</div>
+            <span>ShopHub</span>
+        </div>
+
+        <h1>Welcome to Your<br>Shopping Experience</h1>
+        <p>Discover amazing products at unbeatable prices. Sign in to start shopping and enjoy exclusive deals.</p>
+
+        <div class="stats">
+            <div class="stat-item">
+                <span class="number">1000+</span>
+                <span class="label">Products</span>
+            </div>
+            <div class="stat-item">
+                <span class="number">50k+</span>
+                <span class="label">Customers</span>
+            </div>
+            <div class="stat-item">
+                <span class="number">4.8★</span>
+                <span class="label">Rating</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-panel">
+        <div class="login-card">
+            <h2>Welcome Back</h2>
+            <p class="subtitle">Sign in to continue shopping</p>
+
+            <form>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <div class="input-wrapper">
+                        <span class="icon">✉️</span>
+                        <input type="email" placeholder="you@example.com">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="input-wrapper">
+                        <span class="icon">🔒</span>
+                        <input [type]="passwordVisible ? 'text' : 'password'" placeholder="••••••••">
+                        <button type="button" class="eye-btn" (click)="togglePasswordVisibility()">
+                            {{ passwordVisible ? '🙈' : '👁️' }}
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <label class="checkbox-container">
+                        <input type="checkbox">
+                        <span>Remember me</span>
+                    </label>
+                    <a href="#" class="forgot-link">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="submit-btn">Sign In</button>
+
+                <p class="signup-prompt">Don't have an account? <a href="#">Sign Up</a></p>
+
+                <div class="divider">
+                    <span>Or continue with</span>
+                </div>
+
+                <div class="social-login">
+                    <button type="button" class="social-btn google">
+                        <span class="icon">G</span> Google
+                    </button>
+                    <button type="button" class="social-btn facebook">
+                        <span class="icon">f</span> Facebook
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
