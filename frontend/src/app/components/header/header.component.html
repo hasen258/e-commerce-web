@@ -1,12 +1,33 @@
 <header class="hero">
+    <div class="search-container">
+        <div class="search-bar">
+            <select [(ngModel)]="selectedFilter" class="filter-select">
+                <option value="all">All Categories</option>
+                <option value="electronics">Electronics</option>
+                <option value="clothing">Clothing</option>
+                <option value="home">Home</option>
+            </select>
+            <input type="text" [(ngModel)]="searchQuery" placeholder="Search for products..." class="search-input">
+            <button (click)="onSearch()" class="search-btn">🔍</button>
+        </div>
+    </div>
+
     <div class="content">
-        <h1>Welcome to ShopHub</h1>
-        <p>Discover amazing products at unbeatable prices.</p>
-        <p class="subtitle">Browse our curated collection of high-quality items. Whether you're shopping for yourself or
-            looking for the perfect gift, we've got you covered.</p>
+        <ng-container *ngIf="authService.isLoggedIn(); else guestTemplate">
+            <h1>Welcome back, Valued Customer!</h1>
+            <p>We've picked some items just for you.</p>
+        </ng-container>
+
+        <ng-template #guestTemplate>
+            <h1>Welcome to ShopHub</h1>
+            <p>Discover amazing products at unbeatable prices.</p>
+            <p class="subtitle">Browse our curated collection of high-quality items. Whether you're shopping for
+                yourself or
+                looking for the perfect gift, we've got you covered.</p>
+        </ng-template>
 
         <div class="actions">
-            <a routerLink="/login" class="btn btn-primary">Login / Sign In</a>
+            <a *ngIf="!authService.isLoggedIn()" routerLink="/login" class="btn btn-primary">Login / Sign In</a>
         </div>
     </div>
 </header>

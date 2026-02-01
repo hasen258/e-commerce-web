@@ -1,13 +1,24 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule, FormsModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+  searchQuery: string = '';
+  selectedFilter: string = 'all';
 
+  constructor(public authService: AuthService) { }
+
+  onSearch() {
+    console.log('Searching for:', this.searchQuery, 'Filter:', this.selectedFilter);
+    // Implement search logic here
+  }
 }
