@@ -1,0 +1,66 @@
+<div class="cart-trigger" (click)="toggle()">
+    <div class="icon-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="currentColor">
+            <path
+                d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-66-39t-7-77l66-120-40-84H80v-80h128l24 40Z" />
+        </svg>
+        <span class="badge" *ngIf="cartService.totalItems() > 0">{{ cartService.totalItems() }}</span>
+    </div>
+</div>
+
+<div class="drawer-overlay" [class.open]="isOpen" (click)="close()"></div>
+
+<div class="drawer" [class.open]="isOpen">
+    <div class="drawer-header">
+        <h2>Your Cart</h2>
+        <button class="close-btn" (click)="close()">&times;</button>
+    </div>
+
+    <div class="drawer-body">
+        <div class="empty-state" *ngIf="cartService.cartItems().length === 0">
+            <p>Your cart is empty.</p>
+            <button class="btn-shop" (click)="close()">Start Shopping</button>
+        </div>
+
+        <div class="cart-items" *ngIf="cartService.cartItems().length > 0">
+            <div class="cart-item" *ngFor="let item of cartService.cartItems()">
+
+                <div class="item-visual">
+                    <img [src]="item.product.image" [alt]="item.product.title">
+                </div>
+
+                <div class="item-details">
+                    <h4 class="title">{{ item.product.title }}</h4>
+                    <div class="price-info">
+                        <span class="price">${{ item.product.price }}</span>
+                        <span class="total-row">x {{ item.quantity }} = <strong>${{ item.product.price * item.quantity |
+                                number:'1.2-2' }}</strong></span>
+                    </div>
+
+                    <div class="controls">
+                        <div class="qty-stepper">
+                            <button (click)="decrease(item)">-</button>
+                            <span>{{ item.quantity }}</span>
+                            <button (click)="increase(item)">+</button>
+                        </div>
+                        <button class="remove-btn" (click)="remove(item)">Remove</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="drawer-footer" *ngIf="cartService.cartItems().length > 0">
+        <div class="summary">
+            <div class="row">
+                <span>Items</span>
+                <span>{{ cartService.totalItems() }}</span>
+            </div>
+            <div class="row total">
+                <span>Total</span>
+                <span class="amount">${{ cartService.totalCost() | number:'1.2-2' }}</span>
+            </div>
+        </div>
+        <button class="btn-checkout" (click)="confirmOrder()">Confirm & Checkout</button>
+    </div>
+</div>

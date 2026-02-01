@@ -9,8 +9,12 @@
             <p class="category">{{ product.category }}</p>
             <div class="price-row">
                 <span class="price">${{ product.price }}</span>
-                <button class="add-btn">Add to Cart</button>
+                <button class="add-btn" (click)="openAddToCart(product)">Add to Cart</button>
             </div>
         </div>
     </div>
 </div>
+
+<app-add-to-cart-modal *ngIf="selectedProduct" [product]="selectedProduct" (confirm)="onAddToCartConfirm($event)"
+    (cancel)="onAddToCartCancel()">
+</app-add-to-cart-modal>

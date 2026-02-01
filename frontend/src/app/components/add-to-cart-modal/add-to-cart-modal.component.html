@@ -1,0 +1,35 @@
+<div class="modal-overlay" (click)="onCancel()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h2>Add to Cart</h2>
+            <button class="close-btn" (click)="onCancel()">&times;</button>
+        </div>
+
+        <div class="product-summary" *ngIf="product">
+            <div class="image-wrapper">
+                <img [src]="product.image" [alt]="product.title">
+            </div>
+            <div class="details">
+                <h3>{{ product.title }}</h3>
+                <p class="category">{{ product.category }}</p>
+                <p class="price">${{ product.price }}</p>
+                <p class="description">{{ product.description | slice:0:100 }}<span
+                        *ngIf="product.description.length > 100">...</span></p>
+            </div>
+        </div>
+
+        <div class="quantity-control">
+            <label>Quantity</label>
+            <div class="stepper">
+                <button type="button" (click)="decrease()" [disabled]="quantity <= 1">-</button>
+                <input type="number" [(ngModel)]="quantity" min="1" readonly>
+                <button type="button" (click)="increase()">+</button>
+            </div>
+        </div>
+
+        <div class="modal-actions">
+            <button class="btn-cancel" (click)="onCancel()">Cancel</button>
+            <button class="btn-confirm" (click)="onConfirm()">Confirm</button>
+        </div>
+    </div>
+</div>
