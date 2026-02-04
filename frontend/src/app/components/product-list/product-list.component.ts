@@ -4,6 +4,7 @@ import { ProductService } from '../../services/product.service';
 import { Observable } from 'rxjs';
 import { AddToCartModalComponent } from '../add-to-cart-modal/add-to-cart-modal.component';
 import { CartService } from '../../services/cart.service';
+import { Product } from '../../models/product.model';
 
 @Component({
   selector: 'app-product-list',

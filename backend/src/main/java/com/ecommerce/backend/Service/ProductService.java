@@ -8,6 +8,7 @@ import com.ecommerce.backend.dto.ProductDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @Service
@@ -16,6 +17,7 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
+    private final CloudinaryService cloudinaryService;
 
 
     public List<Products> getAllProducts() {
@@ -32,12 +34,17 @@ public class ProductService {
         return productRepository.findByCategory_Parent_Id(parentCategoryId);
     }
 
-    public ProductDTO createProduct(ProductDTO productDTO) {
+    public ProductDTO createProduct(ProductDTO productDTO, MultipartFile imageFile) {
         Products product = new Products();
         product.setName(productDTO.getName());
         product.setDescription(productDTO.getDescription());
         product.setPrice(productDTO.getPrice());
         product.setStock(productDTO.getStock());
+
+        if (imageFile != null && !imageFile.isEmpty()) {
+            String imageUrl = cloudinaryService.uploadFile(imageFile);
+            product.setImageUrl(imageUrl);
+        }
 
         Category category = categoryRepository.findById(productDTO.getCategoryId())
                 .orElseThrow(() -> new RuntimeException("Category not found"));
@@ -47,7 +54,7 @@ public class ProductService {
         return toDto(savedProduct);
     }
 
-    public ProductDTO updateProduct(Long id, ProductDTO productDTO) {
+    public ProductDTO updateProduct(Long id, ProductDTO productDTO, MultipartFile imageFile) {
         Products product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
@@ -55,6 +62,11 @@ public class ProductService {
         product.setDescription(productDTO.getDescription());
         product.setPrice(productDTO.getPrice());
         product.setStock(productDTO.getStock());
+
+        if (imageFile != null && !imageFile.isEmpty()) {
+            String imageUrl = cloudinaryService.uploadFile(imageFile);
+            product.setImageUrl(imageUrl);
+        }
 
         if (productDTO.getCategoryId() != null) {
             Category category = categoryRepository.findById(productDTO.getCategoryId())
@@ -80,6 +92,7 @@ public class ProductService {
                 product.getDescription(),
                 product.getPrice(),
                 product.getStock(),
+                product.getImageUrl(),
                 product.getCategory().getId(),
                 product.getCategory().getName()
         );

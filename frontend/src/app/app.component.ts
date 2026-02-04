@@ -4,10 +4,12 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
 import { CartDrawerComponent } from './components/cart-drawer/cart-drawer.component';
 
+import { MatIconModule } from '@angular/material/icon';
+
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SidebarComponent, CommonModule, CartDrawerComponent],
+  imports: [RouterOutlet, SidebarComponent, CommonModule, CartDrawerComponent, MatIconModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

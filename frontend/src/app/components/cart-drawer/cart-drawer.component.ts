@@ -4,10 +4,12 @@ import { CartService } from '../../services/cart.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
+import { MatIconModule } from '@angular/material/icon';
+
 @Component({
     selector: 'app-cart-drawer',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, MatIconModule],
     templateUrl: './cart-drawer.component.html',
     styleUrl: './cart-drawer.component.scss'
 })

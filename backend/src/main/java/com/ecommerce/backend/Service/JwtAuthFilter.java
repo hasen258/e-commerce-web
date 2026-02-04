@@ -27,20 +27,33 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         String header = request.getHeader("Authorization");
+        System.out.println("Processing Request: " + request.getRequestURI() + " | Method: " + request.getMethod());
 
         if (header != null && header.startsWith("Bearer ")) {
             String token = header.substring(7);
-            String email = jwtUtil.extractUsername(token);
+            try {
+                String email = jwtUtil.extractUsername(token);
+                System.out.println("JWT email extracted: " + email);
 
-            UserDetails userDetails =
-                    userDetailsService.loadUserByUsername(email);
+                if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                    UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
-            UsernamePasswordAuthenticationToken auth =
-                    new UsernamePasswordAuthenticationToken(
-                            userDetails, null, userDetails.getAuthorities()
-                    );
-
-            SecurityContextHolder.getContext().setAuthentication(auth);
+                    if (jwtUtil.validateToken(token, userDetails)) {
+                        UsernamePasswordAuthenticationToken auth =
+                                new UsernamePasswordAuthenticationToken(
+                                        userDetails, null, userDetails.getAuthorities()
+                                );
+                        SecurityContextHolder.getContext().setAuthentication(auth);
+                        System.out.println("Authentication successful for: " + email);
+                    } else {
+                        System.out.println("Token validation failed");
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("JWT Exception: " + e.getMessage());
+            }
+        } else {
+             System.out.println("Authorization header missing or invalid: " + header);
         }
 
         filterChain.doFilter(request, response);
