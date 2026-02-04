@@ -20,24 +20,39 @@ public class ProductController {
 
     // 🔹 All products
     @GetMapping
-    public ResponseEntity<List<Products>> getProducts(
+    public ResponseEntity<List<ProductDTO>> getProducts(
             @RequestParam(required = false) Long categoryId,
             @RequestParam(required = false) Long parentCategoryId
     ) {
 
+        List<Products> products;
+
         if (categoryId != null) {
-            return ResponseEntity.ok(
-                    productService.getProductsByCategory(categoryId)
-            );
+            products = productService.getProductsByCategory(categoryId);
+        } else if (parentCategoryId != null) {
+            products = productService.getProductsByParentCategory(parentCategoryId);
+        } else {
+            products = productService.getAllProducts();
         }
 
-        if (parentCategoryId != null) {
-            return ResponseEntity.ok(
-                    productService.getProductsByParentCategory(parentCategoryId)
-            );
-        }
+        List<ProductDTO> productDTOs = products.stream()
+                .map(this::toDto)
+                .toList();
 
-        return ResponseEntity.ok(productService.getAllProducts());
+        return ResponseEntity.ok(productDTOs);
+    }
+
+    private ProductDTO toDto(Products product) {
+        return new ProductDTO(
+                product.getId(),
+                product.getName(),
+                product.getDescription(),
+                product.getPrice(),
+                product.getStock(),
+                product.getImageUrl(),
+                product.getCategory().getId(),
+                product.getCategory().getName()
+        );
     }
 
     @PostMapping(consumes = {"multipart/form-data"})

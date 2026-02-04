@@ -1,12 +1,12 @@
 <div class="product-grid">
     <div class="product-card" *ngFor="let product of products$ | async">
         <div class="image-container">
-            <img [src]="product.image" [alt]="product.title">
-            <span class="badge" *ngIf="product.rating?.count < 100">Low Stock</span>
+            <img [src]="product.imageUrl" [alt]="product.name">
+            <span class="badge" *ngIf="product.stock < 10">Low Stock</span>
         </div>
         <div class="details">
-            <h3>{{ product.title }}</h3>
-            <p class="category">{{ product.category }}</p>
+            <h3>{{ product.name }}</h3>
+            <p class="category">{{ product.categoryName }}</p>
             <div class="price-row">
                 <span class="price">${{ product.price }}</span>
                 <button class="add-btn" (click)="openAddToCart(product)">Add to Cart</button>

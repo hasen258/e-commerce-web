@@ -26,15 +26,33 @@
 
     <div class="right-panel">
         <div class="login-card">
-            <h2>Welcome Back</h2>
-            <p class="subtitle">Sign in to continue shopping</p>
+            <h2>{{ isLoginMode ? 'Welcome Back' : 'Create Account' }}</h2>
+            <p class="subtitle">{{ isLoginMode ? 'Sign in to continue shopping' : 'Join us for exclusive deals' }}</p>
 
-            <form (submit)="onLogin(); $event.preventDefault()">
+            <form (submit)="onSubmit(); $event.preventDefault()">
+
+                <div class="form-group" *ngIf="!isLoginMode">
+                    <label>Full Name</label>
+                    <div class="input-wrapper">
+                        <span class="icon">👤</span>
+                        <input type="text" [(ngModel)]="formData.name" name="name" placeholder="John Doe" required>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label>Email Address</label>
                     <div class="input-wrapper">
                         <span class="icon">✉️</span>
-                        <input type="email" placeholder="you@example.com">
+                        <input type="email" [(ngModel)]="formData.email" name="email" placeholder="you@example.com"
+                            required>
+                    </div>
+                </div>
+
+                <div class="form-group" *ngIf="!isLoginMode">
+                    <label>Phone Number</label>
+                    <div class="input-wrapper">
+                        <span class="icon">📱</span>
+                        <input type="tel" [(ngModel)]="formData.phone" name="phone" placeholder="+1234567890">
                     </div>
                 </div>
 
@@ -42,14 +60,15 @@
                     <label>Password</label>
                     <div class="input-wrapper">
                         <span class="icon">🔒</span>
-                        <input [type]="passwordVisible ? 'text' : 'password'" placeholder="••••••••">
+                        <input [type]="passwordVisible ? 'text' : 'password'" [(ngModel)]="formData.password"
+                            name="password" placeholder="••••••••" required>
                         <button type="button" class="eye-btn" (click)="togglePasswordVisibility()">
                             {{ passwordVisible ? '🙈' : '👁️' }}
                         </button>
                     </div>
                 </div>
 
-                <div class="form-actions">
+                <div class="form-actions" *ngIf="isLoginMode">
                     <label class="checkbox-container">
                         <input type="checkbox">
                         <span>Remember me</span>
@@ -57,9 +76,12 @@
                     <a href="#" class="forgot-link">Forgot password?</a>
                 </div>
 
-                <button type="submit" class="submit-btn">Sign In</button>
+                <button type="submit" class="submit-btn">{{ isLoginMode ? 'Sign In' : 'Sign Up' }}</button>
 
-                <p class="signup-prompt">Don't have an account? <a href="#">Sign Up</a></p>
+                <p class="signup-prompt">
+                    {{ isLoginMode ? "Don't have an account?" : "Already have an account?" }}
+                    <a href="javascript:void(0)" (click)="toggleMode()">{{ isLoginMode ? 'Sign Up' : 'Login' }}</a>
+                </p>
 
                 <div class="divider">
                     <span>Or continue with</span>

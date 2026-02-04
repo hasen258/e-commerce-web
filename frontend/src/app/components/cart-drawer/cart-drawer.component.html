@@ -23,11 +23,11 @@
             <div class="cart-item" *ngFor="let item of cartService.cartItems()">
 
                 <div class="item-visual">
-                    <img [src]="item.product.image" [alt]="item.product.title">
+                    <img [src]="item.product.imageUrl" [alt]="item.product.name">
                 </div>
 
                 <div class="item-details">
-                    <h4 class="title">{{ item.product.title }}</h4>
+                    <h4 class="title">{{ item.product.name }}</h4>
                     <div class="price-info">
                         <span class="price">${{ item.product.price }}</span>
                         <span class="total-row">x {{ item.quantity }} = <strong>${{ item.product.price * item.quantity |

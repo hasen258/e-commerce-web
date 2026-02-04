@@ -14,7 +14,7 @@ import { Product } from '../../models/product.model';
   styleUrl: './product-list.component.scss'
 })
 export class ProductListComponent implements OnInit {
-  products$!: Observable<any[]>;
+  products$!: Observable<Product[]>;
   selectedProduct: any | null = null;
 
   constructor(

@@ -38,15 +38,13 @@ public class DataInitializer implements CommandLineRunner {
         Category tshirts = createCategoryIfNotFound("T-Shirts", clothing);
 
         // Check/Create Products
-        if (productRepository.count() == 0) {
-            System.out.println("Initializing sample products...");
+        System.out.println("Checking/Initializing sample products...");
 
-            createProduct("iPhone 14", "Latest Apple smartphone", new BigDecimal("999.99"), 50, phones, "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg");
-            createProduct("Samsung Galaxy S23", "Android flagship", new BigDecimal("899.99"), 30, phones, "https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg");
-            createProduct("MacBook Pro 16", "Powerhouse laptop", new BigDecimal("2499.00"), 10, laptops, "https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg");
-            createProduct("Cotton T-Shirt", "100% Cotton, White", new BigDecimal("19.99"), 100, tshirts, "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg");
-            createProduct("Gaming Laptop", "High performance gaming", new BigDecimal("1500.00"), 15, laptops, "https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg");
-        }
+        createProductIfNotFound("iPhone 14", "Latest Apple smartphone", new BigDecimal("999.99"), 50, phones, "https://placehold.co/600x400?text=iPhone+14");
+        createProductIfNotFound("Samsung Galaxy S23", "Android flagship", new BigDecimal("899.99"), 30, phones, "https://placehold.co/600x400?text=Samsung+S23");
+        createProductIfNotFound("MacBook Pro 16", "Powerhouse laptop", new BigDecimal("2499.00"), 10, laptops, "https://placehold.co/600x400?text=MacBook+Pro");
+        createProductIfNotFound("Cotton T-Shirt", "100% Cotton, White", new BigDecimal("19.99"), 100, tshirts, "https://placehold.co/600x400?text=T-Shirt");
+        createProductIfNotFound("Gaming Laptop", "High performance gaming", new BigDecimal("1500.00"), 15, laptops, "https://placehold.co/600x400?text=Gaming+Laptop");
     }
 
     private Category createCategoryIfNotFound(String name, Category parent) {
@@ -66,7 +64,16 @@ public class DataInitializer implements CommandLineRunner {
         return categoryRepository.save(category);
     }
 
-    private void createProduct(String name, String description, BigDecimal price, Integer stock, Category category, String imageUrl) {
+    private void createProductIfNotFound(String name, String description, BigDecimal price, Integer stock, Category category, String imageUrl) {
+        // Check if product with this exact name exists to avoid duplicates
+        Optional<Products> existing = productRepository.findAll().stream()
+                .filter(p -> p.getName().equalsIgnoreCase(name))
+                .findFirst();
+
+        if (existing.isPresent()) {
+            return;
+        }
+
         Products product = new Products();
         product.setName(name);
         product.setDescription(description);

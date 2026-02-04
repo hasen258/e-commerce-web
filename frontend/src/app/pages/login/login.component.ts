@@ -13,6 +13,14 @@ import { FormsModule } from '@angular/forms'; // Import FormsModule if using ngM
 })
 export class LoginComponent {
   passwordVisible = false;
+  isLoginMode = true; // Toggle between Login and Signup
+
+  formData = {
+    name: '',
+    email: '',
+    password: '',
+    phone: ''
+  };
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -20,9 +28,30 @@ export class LoginComponent {
     this.passwordVisible = !this.passwordVisible;
   }
 
-  // Simulating login for demo purposes
-  onLogin() {
-    this.authService.login('fake-jwt-token');
-    this.router.navigate(['/']); // Redirect to home
+  toggleMode() {
+    this.isLoginMode = !this.isLoginMode;
+  }
+
+  onSubmit() {
+    if (this.isLoginMode) {
+      this.authService.login({ email: this.formData.email, password: this.formData.password }).subscribe({
+        next: () => {
+          this.router.navigate(['/']);
+        },
+        error: (err) => {
+          alert('Login failed: ' + (err.error?.error || 'Invalid credentials'));
+        }
+      });
+    } else {
+      this.authService.signup(this.formData).subscribe({
+        next: () => {
+          alert('Signup successful! Please login.');
+          this.isLoginMode = true;
+        },
+        error: (err) => {
+          alert('Signup failed: ' + (err.error?.message || 'Unknown error'));
+        }
+      });
+    }
   }
 }
