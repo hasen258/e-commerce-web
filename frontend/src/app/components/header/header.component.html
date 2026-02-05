@@ -1,4 +1,4 @@
-<header class="hero">
+<header class="hero" [class.user-logged-in]="authService.isLoggedIn()">
     <div class="search-container">
         <app-search-bar></app-search-bar>
     </div>

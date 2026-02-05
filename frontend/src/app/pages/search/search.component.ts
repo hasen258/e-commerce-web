@@ -25,14 +25,16 @@ export class SearchPageComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.filteredProducts$ = this.route.queryParams.pipe(
+        // Create observables for the template to bind to directly
+        const params$ = this.route.queryParams;
+
+        // This observable is for the product list (async pipe in template)
+        this.filteredProducts$ = params$.pipe(
             switchMap(params => {
                 const query = (params['q'] || '').toLowerCase();
                 const category = params['category'] || 'all';
 
-                this.currentQuery = params['q'] || '';
-                this.currentCategory = category;
-
+                // Use backend filtering for category, then client-side filtering for text
                 return this.productService.getProducts(category).pipe(
                     map(products => products.filter(p =>
                         !query || p.name.toLowerCase().includes(query) || p.description.toLowerCase().includes(query)
@@ -40,5 +42,14 @@ export class SearchPageComponent implements OnInit {
                 );
             })
         );
+
+        // Subscribe to params separately to update local state for the SearchBar inputs
+        // using setTimeout to push the update to the next tick, avoiding the error
+        params$.subscribe(params => {
+            setTimeout(() => {
+                this.currentQuery = params['q'] || '';
+                this.currentCategory = params['category'] || 'all';
+            });
+        });
     }
 }

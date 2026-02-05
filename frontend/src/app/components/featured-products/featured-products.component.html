@@ -1,0 +1,29 @@
+<div class="featured-carousel" *ngIf="featuredProducts.length > 0">
+    <div class="slide-container" *ngFor="let product of featuredProducts; let i = index">
+        <div class="slide-content" *ngIf="i === currentIndex" @slideAnimation>
+            <div class="info-section" @textAnimation>
+                <span class="badge">New Arrival</span>
+                <h1 class="product-title">{{ product.name }}</h1>
+                <p class="product-description">{{ product.description }}</p>
+                <div class="price-tag">${{ product.price }}</div>
+                <div class="actions">
+                    <button mat-raised-button color="primary" class="add-btn" (click)="addToCart(product)">
+                        <mat-icon>shopping_cart</mat-icon> Add to Cart
+                    </button>
+                    <button mat-stroked-button class="details-btn">View Details</button>
+                </div>
+            </div>
+            <div class="image-section" *ngIf="i === currentIndex" @imageAnimation>
+                <div class="image-wrapper">
+                    <img [src]="product.imageUrl" [alt]="product.name">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Indicators -->
+    <div class="indicators">
+        <span *ngFor="let product of featuredProducts; let i = index" [class.active]="i === currentIndex"
+            (click)="goToSlide(i)"></span>
+    </div>
+</div>
