@@ -23,4 +23,8 @@ export class HeaderComponent {
     console.log('Searching for:', this.searchQuery, 'Filter:', this.selectedFilter);
     // Implement search logic here
   }
+
+  logout() {
+    this.authService.logout();
+  }
 }

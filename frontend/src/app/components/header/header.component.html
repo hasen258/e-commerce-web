@@ -27,7 +27,9 @@
         </ng-template>
 
         <div class="actions">
+            <a *ngIf="authService.isAdmin()" routerLink="/admin" class="btn btn-secondary">Dashboard</a>
             <a *ngIf="!authService.isLoggedIn()" routerLink="/login" class="btn btn-primary">Login / Sign In</a>
+            <button *ngIf="authService.isLoggedIn()" (click)="logout()" class="btn btn-primary">Logout</button>
         </div>
     </div>
 </header>

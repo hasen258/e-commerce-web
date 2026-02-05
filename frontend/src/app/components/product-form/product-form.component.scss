@@ -1,0 +1,93 @@
+h2[mat-dialog-title] {
+    background: #1976d2; // Primary blue
+    margin: 0;
+    padding: 20px 24px;
+    font-size: 1.25rem;
+    font-weight: 500;
+    border-bottom: 1px solid #1565c0;
+    color: white; // White text
+}
+
+mat-dialog-content {
+    padding-top: 24px !important;
+    min-width: 450px;
+
+    // Custom scrollbar
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 3px;
+    }
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.full-width {
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 8px;
+
+    mat-form-field {
+        flex: 1;
+    }
+}
+
+.file-input-container {
+    margin: 16px 0 8px;
+}
+
+.file-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    cursor: pointer;
+    padding: 32px;
+    border: 2px dashed #e0e0e0;
+    border-radius: 8px;
+    color: #757575;
+    transition: all 0.2s ease;
+    background-color: #fafafa;
+
+    &:hover {
+        background-color: #f0f7ff;
+        border-color: #2196f3;
+        color: #1976d2;
+    }
+
+    mat-icon {
+        font-size: 40px;
+        width: 40px;
+        height: 40px;
+        color: inherit;
+    }
+
+    span {
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+}
+
+mat-dialog-actions {
+    padding: 16px 24px;
+    margin: 0;
+    border-top: 1px solid #e0e0e0;
+    background: #fafafa;
+}
+
+mat-form-field {
+    --mdc-outlined-text-field-container-shape: 16px;
+    --mdc-filled-text-field-container-shape: 16px;
+}
