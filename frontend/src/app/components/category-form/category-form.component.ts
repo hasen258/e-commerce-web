@@ -51,7 +51,7 @@ export class CategoryFormComponent implements OnInit {
         if (this.data.category) {
             this.categoryForm.patchValue({
                 name: this.data.category.name,
-                parentId: this.data.category.parent?.id || null
+                parentId: this.data.category.parentId || null
             });
         }
     }
@@ -61,7 +61,7 @@ export class CategoryFormComponent implements OnInit {
             const formValue = this.categoryForm.value;
             const categoryData: any = {
                 name: formValue.name,
-                parent: formValue.parentId ? { id: formValue.parentId } : null
+                parentId: formValue.parentId || null
             };
 
             if (this.data.category) {

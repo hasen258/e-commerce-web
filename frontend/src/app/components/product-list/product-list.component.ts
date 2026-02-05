@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product.service';
 import { Observable } from 'rxjs';
@@ -17,13 +17,15 @@ export class ProductListComponent implements OnInit {
   products$!: Observable<Product[]>;
   selectedProduct: any | null = null;
 
+  @Input() inputProducts$: Observable<Product[]> | null = null;
+
   constructor(
     private productService: ProductService,
     private cartService: CartService // Injected CartService
   ) { }
 
   ngOnInit() {
-    this.products$ = this.productService.getProducts();
+    this.products$ = this.inputProducts$ || this.productService.getProducts();
   }
 
   openAddToCart(product: any) {

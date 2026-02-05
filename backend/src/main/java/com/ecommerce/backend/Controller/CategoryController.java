@@ -24,6 +24,11 @@ public class CategoryController {
         return categoryService.getSubCategories(parentId);
     }
 
+    @GetMapping
+    public List<CategoryDTO> getAllCategories() {
+        return categoryService.getAllCategories();
+    }
+
     @PostMapping
     public CategoryDTO createCategory(@RequestBody CategoryDTO categoryDTO) {
         return categoryService.createCategory(categoryDTO);

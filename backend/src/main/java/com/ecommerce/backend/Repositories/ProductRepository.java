@@ -15,6 +15,8 @@ public interface ProductRepository extends JpaRepository<Products, Long> {
     // 🔹 All products under a parent category (ex: Men)
     List<Products> findByCategory_Parent_Id(Long parentCategoryId);
 
+    List<Products> findByCategory_IdIn(List<Long> categoryIds);
+
     // 🔹 Filter by category name (ex: "T-Shirts")
     List<Products> findByCategory_Name(String name);
 

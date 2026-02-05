@@ -1,0 +1,14 @@
+<div class="search-page-container">
+    <div class="search-header">
+        <h1>Find What You Need</h1>
+        <app-search-bar [searchQuery]="currentQuery" [selectedCategoryId]="currentCategory"></app-search-bar>
+    </div>
+
+    <div class="results-container">
+        <app-product-list [inputProducts$]="filteredProducts$"></app-product-list>
+
+        <div *ngIf="(filteredProducts$ | async)?.length === 0" class="no-results">
+            <p>No products found matching your search.</p>
+        </div>
+    </div>
+</div>

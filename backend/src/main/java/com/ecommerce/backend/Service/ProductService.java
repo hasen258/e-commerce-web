@@ -26,7 +26,21 @@ public class ProductService {
 
 
     public List<Products> getProductsByCategory(Long categoryId) {
-        return productRepository.findByCategory_Id(categoryId);
+        // Collect current category and all its subcategories (recursively or just direct children)
+        // Here we do a simple recursive collection for deep filtering
+        List<Long> allCategoryIds = getAllSubCategoryIds(categoryId);
+        return productRepository.findByCategory_IdIn(allCategoryIds);
+    }
+
+    private List<Long> getAllSubCategoryIds(Long parentId) {
+        List<Long> ids = new java.util.ArrayList<>();
+        ids.add(parentId);
+        
+        List<Category> children = categoryRepository.findByParent_Id(parentId);
+        for (Category child : children) {
+            ids.addAll(getAllSubCategoryIds(child.getId()));
+        }
+        return ids;
     }
 
 

@@ -30,6 +30,13 @@ public class CategoryService {
                 .toList();
     }
 
+    public List<CategoryDTO> getAllCategories() {
+        return categoryRepository.findAll()
+                .stream()
+                .map(this::toDto)
+                .toList();
+    }
+
     public CategoryDTO createCategory(CategoryDTO categoryDTO) {
         Category category = new Category();
         category.setName(categoryDTO.getName());

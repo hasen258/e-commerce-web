@@ -1,0 +1,11 @@
+<div class="search-container">
+    <div class="search-bar">
+        <select [(ngModel)]="selectedCategoryId" class="filter-select">
+            <option value="all">All Categories</option>
+            <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
+        </select>
+        <input type="text" [(ngModel)]="searchQuery" (keyup.enter)="onSearch()" placeholder="Search for products..."
+            class="search-input">
+        <button (click)="onSearch()" class="search-btn"><mat-icon>search</mat-icon></button>
+    </div>
+</div>
