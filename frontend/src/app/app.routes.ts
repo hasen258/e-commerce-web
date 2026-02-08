@@ -6,9 +6,12 @@ import { adminGuard } from './guards/admin.guard';
 
 import { SearchPageComponent } from './pages/search/search.component';
 
+import { LoginSuccessComponent } from './pages/login-success/login-success.component';
+
 export const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'login', component: LoginComponent },
+    { path: 'login-success', component: LoginSuccessComponent },
     { path: 'search', component: SearchPageComponent },
     {
         path: 'admin',

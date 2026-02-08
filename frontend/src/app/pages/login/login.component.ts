@@ -24,6 +24,10 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) { }
 
+  loginWithGoogle() {
+    window.location.href = 'http://localhost:8080/oauth2/authorization/google';
+  }
+
   togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
   }
