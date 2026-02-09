@@ -3,19 +3,15 @@
     ShopHub
   </div>
   <nav>
-    <a href="#" class="nav-item active">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
       <span class="icon"><mat-icon>home</mat-icon></span>
       <span class="label">Home</span>
     </a>
-    <a href="#" class="nav-item">
+    <a routerLink="/" fragment="products" routerLinkActive="active" class="nav-item">
       <span class="icon"><mat-icon>inventory_2</mat-icon></span>
       <span class="label">Products</span>
     </a>
-    <a href="#" class="nav-item">
-      <span class="icon"><mat-icon>info</mat-icon></span>
-      <span class="label">About</span>
-    </a>
-    <a href="#" class="nav-item">
+    <a routerLink="/contact" routerLinkActive="active" class="nav-item">
       <span class="icon"><mat-icon>contact_support</mat-icon></span>
       <span class="label">Contact</span>
     </a>

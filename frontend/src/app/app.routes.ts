@@ -13,6 +13,7 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'login-success', component: LoginSuccessComponent },
     { path: 'search', component: SearchPageComponent },
+    { path: 'contact', loadComponent: () => import('./pages/contact/contact.component').then(m => m.ContactComponent) },
     {
         path: 'admin',
         component: AdminDashboardComponent,

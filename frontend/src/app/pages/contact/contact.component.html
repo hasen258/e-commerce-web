@@ -1,0 +1,104 @@
+<div class="contact-page">
+    <div class="contact-header">
+        <h1>Get in Touch</h1>
+        <p>We'd love to hear from you. Please fill out the form below or reach out to us directly.</p>
+    </div>
+
+    <div class="contact-container">
+        <div class="contact-info">
+            <div class="info-card">
+                <h2>Contact Information</h2>
+                <p>Have questions or need assistance? Our team is here to help you.</p>
+
+                <div class="info-item">
+                    <mat-icon>location_on</mat-icon>
+                    <div>
+                        <h3>Visit Us</h3>
+                        <p>123 Commerce Blvd, Suite 100<br>Tech City, TC 90210</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <mat-icon>email</mat-icon>
+                    <div>
+                        <h3>Email Us</h3>
+                        <p>supportshophub.com<br></p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <mat-icon>phone</mat-icon>
+                    <div>
+                        <h3>Call Us</h3>
+                        <p>+1 (555) 123-4567<br>Mon-Fri, 9am - 6pm EST</p>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-form-container">
+            <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+                <h2>Send a Message</h2>
+
+                <div class="form-row">
+                    <mat-form-field appearance="outline" class="half-width">
+                        <mat-label>Your Name</mat-label>
+                        <input matInput formControlName="name" placeholder="John Doe">
+                        <mat-error *ngIf="contactForm.get('name')?.hasError('required')">
+                            Name is required
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="half-width">
+                        <mat-label>Email Address</mat-label>
+                        <input matInput formControlName="email" placeholder="john@example.com">
+                        <mat-error *ngIf="contactForm.get('email')?.hasError('required')">
+                            Email is required
+                        </mat-error>
+                        <mat-error *ngIf="contactForm.get('email')?.hasError('email')">
+                            Please enter a valid email
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Subject</mat-label>
+                    <input matInput formControlName="subject" placeholder="How can we help?">
+                    <mat-error *ngIf="contactForm.get('subject')?.hasError('required')">
+                        Subject is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Message</mat-label>
+                    <textarea matInput formControlName="message" rows="5"
+                        placeholder="Write your message here..."></textarea>
+                    <mat-error *ngIf="contactForm.get('message')?.hasError('required')">
+                        Message is required
+                    </mat-error>
+                </mat-form-field>
+
+                <div class="form-actions">
+                    <button mat-flat-button color="primary" type="submit"
+                        [disabled]="contactForm.invalid || isSubmitting">
+                        <span *ngIf="!isSubmitting">Send Message</span>
+                        <span *ngIf="isSubmitting">Sending...</span>
+                        <mat-icon iconPositionEnd *ngIf="!isSubmitting">send</mat-icon>
+                    </button>
+                </div>
+
+                <div class="success-message" *ngIf="submitted">
+                    <mat-icon>check_circle</mat-icon>
+                    <p>Thank you! Your message has been sent successfully.</p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
